@@ -1,0 +1,10 @@
+.env
+**/.env
+# Virtual environment
+env/
+venv/
+.venv/
+new_env_py38/
+#train/
+train/
+Vizdoom/

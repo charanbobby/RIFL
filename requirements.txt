@@ -1,0 +1,10 @@
+gym-super-mario-bros==7.3.2
+nes.py==8.2.1
+gym==0.23.1
+matplotlib==3.5.1
+torch
+torchvision
+torchaudio
+stable-baselines3[extra]
+gymnasium
+visdoom
