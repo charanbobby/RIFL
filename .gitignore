@@ -8,3 +8,4 @@ new_env_py38/
 #train/
 train/
 Vizdoom/
+logs/
