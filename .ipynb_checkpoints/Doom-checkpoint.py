@@ -66,6 +66,7 @@ class VizDoomEnv(Env):
     # Call to close the game
     def close(self):
         self.game.close()
+        pass
 
 
 # Setup the game

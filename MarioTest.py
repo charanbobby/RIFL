@@ -1,12 +1,9 @@
-import gym
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack
-from stable_baselines3.common.env_util import make_vec_env
 from gym.wrappers import GrayScaleObservation
-from matplotlib import pyplot as plt
-import os
+
 
 # Import PPO (Proximal Policy Optimization) for algorithm 
 from stable_baselines3 import PPO 
@@ -30,13 +27,13 @@ env = DummyVecEnv([lambda: env])
 env = VecFrameStack(env, 4, channels_order='last')
 
 #6. Load the pre-trained model
-model = PPO.load('./train/best_model_600000')
+model = PPO.load('./train/best_model_load2_600000')
 
 #7. Play the game
 state = env.reset()
 
 # Loop through the game
 while True: 
-    action, _state = model.predict(state)   
-    state, reward, done, info = env.step(action)  # take a random action
+    action, _ = model.predict(state)   
+    state, reward, done, info = env.step(action) 
     env.render()

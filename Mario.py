@@ -49,7 +49,7 @@ callback = TrainingLoggingCallback(check_freq=100000, save_path=CHECKPOINT_DIR)
 
 
 #1. Create the environment
-env = gym_super_mario_bros.make('SuperMarioBros2-v1')
+env = gym_super_mario_bros.make('SuperMarioBros-v0')
 
 #2. Simplify the controls
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
@@ -63,6 +63,9 @@ env = DummyVecEnv([lambda: env])
 #5 Stack the frames - 4 frames are stacked
 env = VecFrameStack(env, 4, channels_order='last')
 
+# model = PPO('CnnPolicy', env, verbose=1, tensorboard_log=LOG_DIR, learning_rate=0.00001,n_steps=512)
+# model.set_env(env)
+# model.learning_rate = 0.0000001
 #6. Create the model 
 # # Policy network is CNN (Convolutional Neural Network) - Brain of the AI - CNN is fast for processing images
 # # MlpPolicy is used to predict the probability of the action to be taken (good for excel)
