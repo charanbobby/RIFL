@@ -1,11 +1,10 @@
 import gym
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+from gym_super_mario_bros.actions import COMPLEX_MOVEMENT
 from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack
 from stable_baselines3.common.env_util import make_vec_env
 from gym.wrappers import GrayScaleObservation
-from matplotlib import pyplot as plt
 #Import Frame Stacker Wrapper and Grayscale Observation Wrapper 
 # #(to know where Mario is moving in, what velocity he is moving in, etc.)
 # #(Grayscale Observation Wrapper is used to convert the RGB image to Grayscale to have less data to process)
@@ -36,7 +35,7 @@ class TrainingLoggingCallback(BaseCallback):
 
     def _on_step(self):
         if self.n_calls % self.check_freq == 0:
-            model_path = os.path.join(self.save_path, 'best_model_{}'.format(self.n_calls))
+            model_path = os.path.join(self.save_path, 'best_model_COMPLEX{}'.format(self.n_calls))
             self.model.save(model_path)
 
         return True
@@ -52,7 +51,7 @@ callback = TrainingLoggingCallback(check_freq=100000, save_path=CHECKPOINT_DIR)
 env = gym_super_mario_bros.make('SuperMarioBros-v0')
 
 #2. Simplify the controls
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+env = JoypadSpace(env, COMPLEX_MOVEMENT)
 
 #3. Grayscale
 env = GrayScaleObservation(env, keep_dim=True)
@@ -63,7 +62,7 @@ env = DummyVecEnv([lambda: env])
 #5 Stack the frames - 4 frames are stacked
 env = VecFrameStack(env, 4, channels_order='last')
 
-# model = PPO('CnnPolicy', env, verbose=1, tensorboard_log=LOG_DIR, learning_rate=0.00001,n_steps=512)
+# model = PPO.load('./train/best_model_500000', tensorboard_log=LOG_DIR)
 # model.set_env(env)
 # model.learning_rate = 0.0000001
 #6. Create the model 

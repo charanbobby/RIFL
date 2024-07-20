@@ -1,6 +1,6 @@
 from nes_py.wrappers import JoypadSpace
 import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+from gym_super_mario_bros.actions import COMPLEX_MOVEMENT
 from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack
 from gym.wrappers import GrayScaleObservation
 
@@ -12,10 +12,10 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import BaseCallback
 
 #1. Create the environment
-env = gym_super_mario_bros.make('SuperMarioBros2-v1')
+env = gym_super_mario_bros.make('SuperMarioBros-v0')
 
 #2. Simplify the controls
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+env = JoypadSpace(env, COMPLEX_MOVEMENT)
 
 #3. Grayscale
 env = GrayScaleObservation(env, keep_dim=True)
@@ -27,7 +27,7 @@ env = DummyVecEnv([lambda: env])
 env = VecFrameStack(env, 4, channels_order='last')
 
 #6. Load the pre-trained model
-model = PPO.load('./train/best_model_load2_600000')
+model = PPO.load('./train/best_model_COMPLEX700000')
 
 #7. Play the game
 state = env.reset()
