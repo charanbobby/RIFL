@@ -27,7 +27,7 @@ env = DummyVecEnv([lambda: env])
 env = VecFrameStack(env, 4, channels_order='last')
 
 #6. Load the pre-trained model
-model = PPO.load('./train/best_model_COMPLEX700000')
+model = PPO.load('./train/best_model_COMPLEX2000000')
 
 #7. Play the game
 state = env.reset()
